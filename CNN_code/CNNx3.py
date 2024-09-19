@@ -18,16 +18,15 @@ import os
 
 #%% CNNx3 structure
 
-def load_dset(cor_path,lab_path):
+def load_dset(cor_path,lab):
     
-    cor = np.delete(np.load(cor_path), 12, axis=3)
-    lab = np.load(lab_path)
+    cor = np.delete(cor_path, 12, axis=3)
     tr_img,  val_img, tr_lab, val_lab = train_test_split(cor, lab, test_size=0.15, random_state=3, shuffle=True)
     
     return tr_img,  val_img, tr_lab, val_lab
 
 
-def CNNx3(cor_path,lab_path):
+def CNNx3(cor_path,lab):
     
     tr_img,  val_img, tr_lab, val_lab = load_dset(cor_path,lab_path)
 
@@ -140,12 +139,11 @@ def CNNx3_test(test_cor_path,labe_cor_path):
      
     #%% Testing
     
-    dset = np.delete(np.load(test_cor_path), 12, axis=3)
-    labe = np.load(labe_cor_path)
-    
+    dset = np.delete(test_cor_path, 12, axis=3)
+   
     with tf.device('/CPU:0'):
         
         pred_TR_x3 = loaded_model.predict([dset[:,:,:,:,0],dset[:,:,:,:,1],dset[:,:,:,:,2]])
         pred_TR_x3 = np.round(pred_TR_x3,3)
     
-    return pred_TR_x3,labe
+    return pred_TR_x3,labe_cor_path
