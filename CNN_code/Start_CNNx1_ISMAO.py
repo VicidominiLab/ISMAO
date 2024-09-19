@@ -4,34 +4,41 @@ import numpy as np
 import DataAugmentation as dag
 import seaborn as sns
 import matplotlib.pyplot as plt
-
+import Download_data as dd
+import os
 
 ## %%CNNx1 Training
 
-cor_path = r'C:\Users\ffersini\Desktop\files\Cor.npy'
-lab_path = r'C:\Users\ffersini\Desktop\files\Lab.npy'
+url_data = 'https://zenodo.org/records/13789465/files/correlograms_simulated.npy'
+    name_data = 'correlograms_simulated.npy'
+    if not os.path.isfile(name_data):
+        dd.download(url_data, name_data)
+    else:
+        print('correlograms_simulated.npy already downloaded.')
+
+    cor_path = np.load(name_data)
+
+url_data = 'https://zenodo.org/records/13789465/files/correlograms_labels.npy.npy'
+    name_data = 'correlograms_labels.npy.npy'
+    if not os.path.isfile(name_data):
+        dd.download(url_data, name_data)
+    else:
+        print('correlograms_labels.npy already downloaded.')
+
+    lab_path = np.load(name_data)
 
 cnnx1.CNNx1(cor_path,lab_path)
 
 ## %%CNNx1 Testing
 
-test_cor_path = np.load(r'C:\Users\ffersini\Desktop\files\Cor.npy')
-labe_cor_path = np.load(r'C:\Users\ffersini\Desktop\files\Lab.npy')
-
-pred_TR_x1, labe = cnnx1.CNNx1_test(test_cor_path, labe_cor_path)
+pred_TR_x1, labe = cnnx1.CNNx1_test(cor_path, lab_path)
 
 ## %%CNNx1 TransferLearning
 
-path_weights = r'C:\Users\ffersini\Desktop\files\modelx1.weights.h5'
-path_file = r'C:\Users\ffersini\Desktop\files\modelx1.json'
+path_weights = r'files\modelx1.weights.h5'
+path_file = r'files\modelx1.json'
 
-new_file = r'C:\Users\ffersini\Desktop\files\Cor.npy'
-new_label = r'C:\Users\ffersini\Desktop\files\Lab.npy'
-
-test_cor_path = r'C:\Users\ffersini\Desktop\files\Cor.npy'
-labe_cor_path = r'C:\Users\ffersini\Desktop\files\Lab.npy'
-
-pred, labe = tflx1.transfer_cnnx1(path_weights, path_file, new_file, new_label, test_cor_path, labe_cor_path)
+pred, labe = tflx1.transfer_cnnx1(path_weights, path_file, cor_path, lab_path, cor_path, lab_path)
 
 print(pred)
 print(labe)
