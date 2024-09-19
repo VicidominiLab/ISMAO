@@ -16,17 +16,16 @@ import os
 
 #%% Load_dset
 
-def load_dset(cor_path,lab_path):
+def load_dset(cor_path,lab):
     
-    cor = np.delete(np.load(cor_path)[:,:,:,:,1], 12, axis=3)
-    lab = np.load(lab_path)
+    cor = np.delete(cor_path[:,:,:,:,1], 12, axis=3)
     tr_img,  val_img, tr_lab, val_lab = train_test_split(cor, lab, test_size=0.15, random_state=3, shuffle=True)
     
     return tr_img,  val_img, tr_lab, val_lab
 
 def CNNx1(cor_path,lab_path):
        
-    tr_img,  val_img, tr_lab, val_lab = load_dset(cor_path,lab_path)
+    tr_img,  val_img, tr_lab, val_lab = load_dset(cor_path,lab)
     
     #%% CNNx1 Structure
     
