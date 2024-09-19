@@ -60,12 +60,12 @@ def transfer_cnnx1(path_weights,path_file,new_file,new_label,t_dset,t_labe):
     
     #%% Load weights in TransferLearning folder
     
-    json_file = open(r'C:\Users\ffersini\Desktop\modelx1_transfer.json', 'r')
+    json_file = open(r'files\modelx1_transfer.json', 'r')
     loaded_model_json = json_file.read()
     json_file.close()
     loaded_model = model_from_json(loaded_model_json)
     # load weights into new model
-    loaded_model.load_weights(r'C:\Users\ffersini\Desktop\modelx1_transfer.weights.h5')
+    loaded_model.load_weights(r'files\modelx1_transfer.weights.h5')
     print("Loaded model from disk")
     
     #%% Testing
