@@ -130,12 +130,12 @@ def CNNx3(cor_path,lab_path):
 
 def CNNx3_test(test_cor_path,labe_cor_path):
 
-    json_file = open(r'C:\Users\ffersini\Desktop\files\modelx3.json', 'r')
+    json_file = open(r'files\modelx3.json', 'r')
     loaded_model_json = json_file.read()
     json_file.close()
     loaded_model = model_from_json(loaded_model_json)
     # load weights into new model
-    loaded_model.load_weights(r'C:\Users\ffersini\Desktop\files\modelx3.weights.h5')
+    loaded_model.load_weights(r'files\modelx3.weights.h5')
     print("Loaded model from disk")
      
     #%% Testing
