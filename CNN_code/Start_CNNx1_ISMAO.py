@@ -58,5 +58,5 @@ print(labe)
 
 # %% DataAugmntation
 
-#path = r'C:\Users\ffersini\Desktop\files\data-20-02-2024-12-21-47.h5'
+#path = r'file.h5'
 #dataAugm = dag.data_augm(path, 2, 3)
