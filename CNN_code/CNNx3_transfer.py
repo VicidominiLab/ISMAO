@@ -25,8 +25,7 @@ def transfer_cnnx3(path_weights,path_file,new_file,new_label,t_dset,t_labe):
     loaded_model.load_weights(path_weights)
     print("Loaded model from disk")
     
-    data = np.delete(np.load(new_file), 12, axis=3)
-    label = np.load(new_label)
+    data = np.delete(new_file, 12, axis=3)
     
     #%% Launch
     print('TransferLearning')
@@ -40,8 +39,8 @@ def transfer_cnnx3(path_weights,path_file,new_file,new_label,t_dset,t_labe):
 
     with tf.device('/CPU:0'):
         history = loaded_model.fit([data[0:s_e,:,:,:,0], data[0:s_e,:,:,:,1], data[0:s_e,:,:,:,2]],
-                                    [label[0:s_e,:],label[0:s_e,:],label[0:s_e,:]], epochs=50, batch_size=8,shuffle = True,
-                                    validation_data = ([data[s_e::,:,:,:,0],data[s_e::,:,:,:,1], data[s_e::,:,:,:,2]], [label[s_e::,:],label[s_e::,:],label[s_e::,:]]))
+                                    [new_label[0:s_e,:],new_label[0:s_e,:],new_label[0:s_e,:]], epochs=50, batch_size=8,shuffle = True,
+                                    validation_data = ([data[s_e::,:,:,:,0],data[s_e::,:,:,:,1], data[s_e::,:,:,:,2]], [new_label[s_e::,:],new_label[s_e::,:],new_label[s_e::,:]]))
     
     print('Launch')
         
@@ -75,8 +74,7 @@ def transfer_cnnx3(path_weights,path_file,new_file,new_label,t_dset,t_labe):
     loaded_model.load_weights(r'files\modelx3_transfer.weights.h5')
     print("Loaded model from disk")
         
-    test = np.delete(np.load(t_dset), 12, axis=-2)
-    labe = np.load(t_labe)
+    test = np.delete(t_dset, 12, axis=-2)
     
     with tf.device('/CPU:0'):
     
@@ -85,4 +83,4 @@ def transfer_cnnx3(path_weights,path_file,new_file,new_label,t_dset,t_labe):
     
     print('Launch')
     
-    return pred_TL_x3,labe
+    return pred_TL_x3,t_labe
