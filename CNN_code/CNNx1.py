@@ -120,7 +120,6 @@ def CNNx1_test(test_cor_path,labe_cor_path):
     #%% Testing 
     
     dset = np.delete(test_cor_path[:,:,:,:,1], 12, axis=3)
-    labe = labe_cor_path
     pred_TR_x1 = np.round(loaded_model.predict(dset),3)
 
-    return pred_TR_x1,labe
+    return pred_TR_x1,labe_cor_path
