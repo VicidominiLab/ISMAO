@@ -57,6 +57,6 @@ print(labe)
 
 # %% DataAugmntation
 
-#path = r'C:\Users\ffersini\OneDrive - Fondazione Istituto Italiano Tecnologia\FFersini\Data\Beads\GoodData\data-20-02-2024-12-21-47.h5'
+#path = r'file.h5'
 #dataAugm = dag.data_augm(path, 2, 3)
 
